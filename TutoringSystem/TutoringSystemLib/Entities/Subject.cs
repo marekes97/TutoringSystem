@@ -9,5 +9,8 @@ namespace TutoringSystemLib.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal HourlRate  { get; set; }
+
+        public int LessonId { get; set; }
+        public virtual Lesson Lesson { get; set; }
     }
 }

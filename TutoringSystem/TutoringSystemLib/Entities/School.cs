@@ -10,5 +10,8 @@ namespace TutoringSystemLib.Entities
         public string Name { get; set; }
         public EducationLevel EducationLevel { get; set; }
         public int Year { get; set; }
+
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }

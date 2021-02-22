@@ -9,5 +9,8 @@ namespace TutoringSystemLib.Entities
         public int Id { get; set; }
         public bool AtTutor { get; set; }
         public string Address { get; set; }
+
+        public int ReservationId { get; set; }
+        public virtual Reservation Reservation { get; set; }
     }
 }

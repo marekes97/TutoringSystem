@@ -10,7 +10,10 @@ namespace TutoringSystemLib.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Role Role { get; set; }
-        public Contact Contact { get; set; }
-        public School School { get; set; }
+
+        public virtual Contact Contact { get; set; }
+        public virtual School School { get; set; }
+        public virtual List<Reservation> Reservation { get; set; }
+        public virtual List<AdditionalOrder> AdditionalOrders { get; set; }
     }
 }
