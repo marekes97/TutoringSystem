@@ -4,11 +4,10 @@ using System.Text;
 
 namespace TutoringSystemLib.Entities
 {
-    public class School
+    public class Subject
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public EducationLevel EducationLevel { get; set; }
-        public int Year { get; set; }
+        public decimal HourlRate  { get; set; }
     }
 }

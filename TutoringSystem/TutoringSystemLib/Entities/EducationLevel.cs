@@ -4,7 +4,10 @@ using System.Text;
 
 namespace TutoringSystemLib.Entities
 {
-    class EducationLevel
+    public enum EducationLevel
     {
+        PrimarySchool,
+        HighSchool,
+        College
     }
 }
