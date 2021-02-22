@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "2oJkVZA9+3DZyMowRzdX3v7zPkO5y6+oYBrMlhd6r74O9Kaa1M+tALnTzy/Bb9eWVG0b9hLhfNV+2d97oKLnLQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marek\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
