@@ -13,7 +13,10 @@ namespace TutoringSystemLib.Entities
         public virtual Lesson Lesson { get; set; }
         public virtual Place Place { get; set; }
 
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public int TutorId { get; set; }
+        public virtual User Tutor { get; set; }
+
+        public int StudentId { get; set; }
+        public virtual User Student { get; set; }
     }
 }
