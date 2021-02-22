@@ -1,0 +1,9 @@
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\bin\Debug\netstandard2.0\TutoringSystemLib.deps.json
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\bin\Debug\netstandard2.0\TutoringSystemLib.dll
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\bin\Debug\netstandard2.0\TutoringSystemLib.pdb
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.csprojAssemblyReference.cache
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.AssemblyInfoInputs.cache
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.AssemblyInfo.cs
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.csproj.CoreCompileInputs.cache
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.dll
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.pdb
