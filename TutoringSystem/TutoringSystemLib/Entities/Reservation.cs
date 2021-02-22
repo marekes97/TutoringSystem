@@ -7,7 +7,7 @@ namespace TutoringSystemLib.Entities
     public class Reservation
     {
         public int Id { get; set; }
-        public decimal Cost { get; set; }
+        public double Cost { get; set; }
         public DateTime StartTime { get; set; }
 
         public virtual Lesson Lesson { get; set; }
