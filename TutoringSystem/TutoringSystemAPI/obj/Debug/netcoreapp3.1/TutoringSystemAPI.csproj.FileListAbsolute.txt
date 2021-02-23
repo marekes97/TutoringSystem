@@ -63,3 +63,6 @@ C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\T
 C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemAPI\obj\Debug\netcoreapp3.1\TutoringSystemAPI.csproj.CoreCompileInputs.cache
 C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemAPI\obj\Debug\netcoreapp3.1\TutoringSystemAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\marek\OneDrive\Desktop\C#Dev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
