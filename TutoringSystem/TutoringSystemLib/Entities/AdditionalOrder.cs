@@ -12,7 +12,7 @@ namespace TutoringSystemLib.Entities
         public string Description { get; set; }
         public double Cost { get; set; }
 
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public int TutorId { get; set; }
+        public virtual Tutor Tutor { get; set; }
     }
 }

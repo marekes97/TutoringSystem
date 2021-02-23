@@ -6,7 +6,7 @@ namespace TutoringSystemLib.Entities
 {
     public class User
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string FirstName { get; set; }
@@ -15,9 +15,7 @@ namespace TutoringSystemLib.Entities
         public Role Role { get; set; }
 
         public virtual Contact Contact { get; set; }
-        public virtual School School { get; set; }
         public virtual Address Address { get; set; }
-        public virtual List<Reservation> Reservations { get; set; }
-        public virtual List<AdditionalOrder> AdditionalOrders { get; set; }
+
     }
 }
