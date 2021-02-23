@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "mPQ7+z/IY4Zif0QrYf0CFr91UtWMPGqZZq2Af7UQWhc8Y0EsEZFDFfqPLke2iCYir0xCHVaCcC8ybXA0r8Cimw==",
+  "dgSpecHash": "1pzyU9crnuOUVMrOSctFPbb1oH1J0qXOngWVd3HVxDuMSMjxdLVSJp06+02aRHH8XJvd+japZkzh4CKNHJ49ag==",
   "success": true,
   "projectFilePath": "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemAPI\\TutoringSystemAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marek\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\marek\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "C:\\Users\\marek\\.nuget\\packages\\fluentvalidation\\9.5.1\\fluentvalidation.9.5.1.nupkg.sha512",
+    "C:\\Users\\marek\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.5.1\\fluentvalidation.aspnetcore.9.5.1.nupkg.sha512",
+    "C:\\Users\\marek\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\9.5.1\\fluentvalidation.dependencyinjectionextensions.9.5.1.nupkg.sha512",
     "C:\\Users\\marek\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\marek\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.0.0\\microsoft.aspnetcore.authentication.jwtbearer.3.0.0.nupkg.sha512",
     "C:\\Users\\marek\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

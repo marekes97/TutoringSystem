@@ -16,6 +16,9 @@ using TutoringSystemAPI.Identity;
 using TutoringSystemLib.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using FluentValidation;
+using TutoringSystemLib.Models;
+using TutoringSystemAPI.Validators;
 
 namespace TutoringSystemAPI
 {
@@ -52,9 +55,10 @@ namespace TutoringSystemAPI
 
             services.AddScoped<IJwtProvider, JwtProvider>();
 
-            services.AddControllers();
-            services.AddDbContext<AppDbContext>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddControllers();
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserValidation>();
+            services.AddDbContext<AppDbContext>();
             services.AddScoped<Seeder>();
             services.AddAutoMapper(GetType().Assembly);
         }
