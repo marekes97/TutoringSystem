@@ -66,7 +66,7 @@ namespace TutoringSystemAPI
                 Duration = 1.5,
             };
 
-            var me = new User
+            var me = new Tutor
             {
                 AdditionalOrders = orders,
 
@@ -97,7 +97,7 @@ namespace TutoringSystemAPI
             };
             me.PasswordHash = passwordHasher.HashPassword(me, "1234");
 
-            var bartoszDras = new User
+            var bartoszDras = new Student
             {
                 FirstName = "Bartosz",
                 LastName = "Dras",
@@ -122,7 +122,7 @@ namespace TutoringSystemAPI
             };
             bartoszDras.PasswordHash = passwordHasher.HashPassword(bartoszDras, "1234");
 
-            var alicjaSzmigiel = new User
+            var alicjaSzmigiel = new Student
             {
                 FirstName = "Alicja",
                 LastName = "Szmigiel",
