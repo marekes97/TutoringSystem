@@ -16,6 +16,7 @@ namespace TutoringSystemLib.Entities
 
         public virtual Contact Contact { get; set; }
         public virtual School School { get; set; }
+        public virtual Address Address { get; set; }
         public virtual List<Reservation> Reservations { get; set; }
         public virtual List<AdditionalOrder> AdditionalOrders { get; set; }
     }
