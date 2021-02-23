@@ -6,7 +6,6 @@ namespace TutoringSystemLib.Entities
 {
     public class Tutor : User
     {
-        public override int Id { get; set; }
         public virtual List<AdditionalOrder> AdditionalOrders { get; set; }
         public virtual List<Reservation> Reservations { get; set; }
     }

@@ -6,7 +6,7 @@ namespace TutoringSystemLib.Entities
 {
     public class User
     {
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string FirstName { get; set; }
