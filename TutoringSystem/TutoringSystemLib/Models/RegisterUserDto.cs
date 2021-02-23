@@ -27,5 +27,8 @@ namespace TutoringSystemLib.Models
         public string SchoolName { get; set; }
         public EducationLevel EducationLevel { get; set; }
         public int EducationYear { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
     }
 }
