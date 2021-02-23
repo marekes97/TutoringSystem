@@ -159,15 +159,22 @@ namespace TutoringSystemAPI
                 Place = Place.Online
             };
 
-            me.Reservations.Add(r1);
-            me.Reservations.Add(r2);
+            var myRerservation = new List<Reservation>();
+            myRerservation.Add(r1);
+            myRerservation.Add(r2);
+            me.Reservations = myRerservation;
 
-            bartoszDras.Reservations.Add(r1);
-            alicjaSzmigiel.Reservations.Add(r2);
+            var barDraReservations = new List<Reservation>();
+            barDraReservations.Add(r1);
+            bartoszDras.Reservations = barDraReservations;
 
-            dbContext.Users.Add(me);
-            dbContext.Users.Add(bartoszDras);
-            dbContext.Users.Add(alicjaSzmigiel);
+            var aliSzmReservations = new List<Reservation>();
+            aliSzmReservations.Add(r2);
+            alicjaSzmigiel.Reservations = aliSzmReservations;
+
+            dbContext.Tutors.Add(me);
+            dbContext.Students.Add(bartoszDras);
+            dbContext.Students.Add(alicjaSzmigiel);
 
             dbContext.SaveChanges();
         }

@@ -255,21 +255,21 @@ namespace TutoringSystemAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TutoringSystemLib.Entities.Student", b =>
                 {
                     b.HasBaseType("TutoringSystemLib.Entities.User");
 
-                    b.ToTable("Student");
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("TutoringSystemLib.Entities.Tutor", b =>
                 {
                     b.HasBaseType("TutoringSystemLib.Entities.User");
 
-                    b.ToTable("Tutor");
+                    b.ToTable("Tutors");
                 });
 
             modelBuilder.Entity("TutoringSystemLib.Entities.AdditionalOrder", b =>

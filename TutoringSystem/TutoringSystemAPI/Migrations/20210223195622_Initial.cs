@@ -8,7 +8,7 @@ namespace TutoringSystemAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,7 +22,7 @@ namespace TutoringSystemAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,9 +40,9 @@ namespace TutoringSystemAPI.Migrations
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_User_UserId",
+                        name: "FK_Addresses_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -61,43 +61,43 @@ namespace TutoringSystemAPI.Migrations
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contacts_User_UserId",
+                        name: "FK_Contacts_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
+                name: "Students",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.PrimaryKey("PK_Students", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Student_User_Id",
+                        name: "FK_Students_Users_Id",
                         column: x => x.Id,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tutor",
+                name: "Tutors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tutor", x => x.Id);
+                    table.PrimaryKey("PK_Tutors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tutor_User_Id",
+                        name: "FK_Tutors_Users_Id",
                         column: x => x.Id,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -138,9 +138,9 @@ namespace TutoringSystemAPI.Migrations
                 {
                     table.PrimaryKey("PK_Schools", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Schools_Student_StudentId",
+                        name: "FK_Schools_Students_StudentId",
                         column: x => x.StudentId,
-                        principalTable: "Student",
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -161,9 +161,9 @@ namespace TutoringSystemAPI.Migrations
                 {
                     table.PrimaryKey("PK_AdditionalOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdditionalOrders_Tutor_TutorId",
+                        name: "FK_AdditionalOrders_Tutors_TutorId",
                         column: x => x.TutorId,
-                        principalTable: "Tutor",
+                        principalTable: "Tutors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -184,15 +184,15 @@ namespace TutoringSystemAPI.Migrations
                 {
                     table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_Student_StudentId",
+                        name: "FK_Reservations_Students_StudentId",
                         column: x => x.StudentId,
-                        principalTable: "Student",
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_Tutor_TutorId",
+                        name: "FK_Reservations_Tutors_TutorId",
                         column: x => x.TutorId,
-                        principalTable: "Tutor",
+                        principalTable: "Tutors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -317,13 +317,13 @@ namespace TutoringSystemAPI.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
-                name: "Student");
+                name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Tutor");
+                name: "Tutors");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

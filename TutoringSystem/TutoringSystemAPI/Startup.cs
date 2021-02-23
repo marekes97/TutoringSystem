@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI
 {
@@ -27,10 +29,12 @@ namespace TutoringSystemAPI
         {
             services.AddControllers();
             services.AddDbContext<AppDbContext>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<Seeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seeder seeder)
         {
             if (env.IsDevelopment())
             {
@@ -47,6 +51,8 @@ namespace TutoringSystemAPI
             {
                 endpoints.MapControllers();
             });
+
+            seeder.Seed();
         }
     }
 }

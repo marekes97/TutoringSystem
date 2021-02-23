@@ -25,9 +25,9 @@ namespace TutoringSystemAPI
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Student>().ToTable("Student");
-            modelBuilder.Entity<Tutor>().ToTable("Tutor");
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Student>().ToTable("Students");
+            modelBuilder.Entity<Tutor>().ToTable("Tutors");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
