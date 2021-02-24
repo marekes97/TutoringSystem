@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj": {}
+    "C:\\Users\\marek\\OneDrive\\Desktop\\CsDev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj": {
+    "C:\\Users\\marek\\OneDrive\\Desktop\\CsDev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj",
+        "projectUniqueName": "C:\\Users\\marek\\OneDrive\\Desktop\\CsDev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj",
         "projectName": "TutoringSystemLib",
-        "projectPath": "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj",
+        "projectPath": "C:\\Users\\marek\\OneDrive\\Desktop\\CsDev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\TutoringSystemLib.csproj",
         "packagesPath": "C:\\Users\\marek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\obj\\",
+        "outputPath": "C:\\Users\\marek\\OneDrive\\Desktop\\CsDev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemLib\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
