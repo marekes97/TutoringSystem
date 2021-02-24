@@ -20,7 +20,9 @@ namespace TutoringSystemAPI.Validators
             });
 
             RuleFor(u => u.Password).MinimumLength(4);
-            RuleFor(x => x.Password).Equal(x => x.ConfirmPassword);
+            RuleFor(u => u.Password).Equal(u => u.ConfirmPassword);
+
+            RuleFor(u => u.FirstName).NotEmpty();
         }
     }
 }

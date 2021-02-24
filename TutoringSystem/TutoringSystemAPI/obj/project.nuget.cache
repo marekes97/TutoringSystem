@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1pzyU9crnuOUVMrOSctFPbb1oH1J0qXOngWVd3HVxDuMSMjxdLVSJp06+02aRHH8XJvd+japZkzh4CKNHJ49ag==",
+  "dgSpecHash": "zQq72Ior9a+NooWQ0TgX+rSURDlvvOOSeMM4jqJoy1Y3EJ3bSkFT9F1KqzNejQ8f3+ZiUMVzDlATIDI0s0YSiw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\marek\\OneDrive\\Desktop\\C#Dev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemAPI\\TutoringSystemAPI.csproj",
+  "projectFilePath": "C:\\Users\\marek\\OneDrive\\Desktop\\CsDev\\ASPNETCore\\TutoringSystem\\TutoringSystem\\TutoringSystem\\TutoringSystemAPI\\TutoringSystemAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marek\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\marek\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

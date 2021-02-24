@@ -73,6 +73,20 @@ namespace TutoringSystemAPI.Controllers
             return Ok();
         }
 
-       
+        [HttpPost("login")]
+        public ActionResult Register([FromBody]LoginUserDto loginUserDto)
+        {
+            var user = dbContext.Users.FirstOrDefault(u => u.Login.Equals(loginUserDto.UserName));
+
+            if (user == null)
+                return BadRequest("Invalid username of password!");
+
+            var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginUserDto.Password);
+            if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                return BadRequest("Invalid username of password!");
+
+            var token = jwtProvider.GenerateJwtToken(user);
+            return Ok(token);
+        }
     }
 }
