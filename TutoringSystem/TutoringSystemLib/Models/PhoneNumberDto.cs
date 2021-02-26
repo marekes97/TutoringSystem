@@ -4,9 +4,9 @@ using System.Text;
 
 namespace TutoringSystemLib.Models
 {
-    public class PhoneDto
+    public class PhoneNumberDto
     {
-        public string PhoneOwner { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Owner { get; set; }
+        public string Number { get; set; }
     }
 }
