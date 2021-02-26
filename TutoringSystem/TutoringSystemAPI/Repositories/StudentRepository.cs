@@ -29,9 +29,18 @@ namespace TutoringSystemAPI.Repositories
             dbContext.SaveChanges();
         }
 
-        public void UpdateStudent(Student student)
+        public void UpdateStudent(string userName, Student newStudent)
         {
-            dbContext.Students.Update(student);
+            var student = GetStudent(userName);
+            student.Address = newStudent.Address;
+            student.Contact = newStudent.Contact;
+            student.FirstName = newStudent.FirstName;
+            student.LastName = newStudent.LastName;
+            student.PhotoUrl = newStudent.PhotoUrl;
+            student.PasswordHash = newStudent.PasswordHash;
+            student.School = newStudent.School;
+            student.UserName = newStudent.UserName;
+
             dbContext.SaveChanges();
         }
 

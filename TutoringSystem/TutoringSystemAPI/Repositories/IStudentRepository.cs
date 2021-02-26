@@ -9,6 +9,6 @@ namespace TutoringSystemAPI.Repositories
         void DeleteStudent(Student student);
         Student GetStudent(string userName);
         ICollection<Student> GetStudents();
-        void UpdateStudent(Student student);
+        void UpdateStudent(string userName, Student newStudent);
     }
 }
