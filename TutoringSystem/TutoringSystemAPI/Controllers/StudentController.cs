@@ -16,13 +16,13 @@ namespace TutoringSystemAPI.Controllers
     [Authorize]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentRepository students;
+        private readonly IStudentRepository studentRepo;
         private readonly IMapper mapper;
         private readonly IPasswordHasher<User> passwordHasher;
 
-        public StudentController(IStudentRepository students, IMapper mapper, IPasswordHasher<User> passwordHasher)
+        public StudentController(IStudentRepository studentRepo, IMapper mapper, IPasswordHasher<User> passwordHasher)
         {
-            this.students = students;
+            this.studentRepo = studentRepo;
             this.mapper = mapper;
             this.passwordHasher = passwordHasher;
         }
@@ -31,7 +31,7 @@ namespace TutoringSystemAPI.Controllers
         [Authorize(Roles = "Tutor")]
         public ActionResult<List<StudentDto>> Get()
         {
-            var studentsDtos = mapper.Map<List<StudentDto>>(students.GetStudents());
+            var studentsDtos = mapper.Map<List<StudentDto>>(studentRepo.GetStudents());
             return Ok(studentsDtos);
         }
 
@@ -39,7 +39,7 @@ namespace TutoringSystemAPI.Controllers
         [Authorize(Roles = "Tutor")]
         public ActionResult<StudentDto> Get(string userName)
         {
-            var student = students.GetStudent(userName);
+            var student = studentRepo.GetStudent(userName);
             if (student == null)
                 return NotFound();
 
@@ -51,13 +51,13 @@ namespace TutoringSystemAPI.Controllers
         [Authorize(Roles = "Tutor")]
         public ActionResult Put(string userName, [FromBody] RegisterUserDto userDto)
         {
-            var student = students.GetStudent(userName);
+            var student = studentRepo.GetStudent(userName);
             if (student == null)
                 return NotFound();
 
             var newStudent = mapper.Map<Student>(userDto);
             newStudent.PasswordHash = passwordHasher.HashPassword(newStudent, userDto.Password);
-            students.UpdateStudent(userName, newStudent);
+            studentRepo.UpdateStudent(userName, newStudent);
 
             return NoContent();
         }
@@ -66,11 +66,11 @@ namespace TutoringSystemAPI.Controllers
         [Authorize(Roles = "Tutor")]
         public ActionResult Delete(string userName)
         {
-            var student = students.GetStudent(userName);
+            var student = studentRepo.GetStudent(userName);
             if (student == null)
                 return NotFound();
 
-            students.DeleteStudent(student);
+            studentRepo.DeleteStudent(student);
             return NoContent();
         }
     }

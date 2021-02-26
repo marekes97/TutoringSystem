@@ -16,15 +16,15 @@ namespace TutoringSystemAPI.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        private readonly IStudentRepository students;
+        private readonly IStudentRepository studentRepo;
         private readonly AppDbContext dbContext;
         private readonly IPasswordHasher<User> passwordHasher;
         private readonly IJwtProvider jwtProvider;
         private readonly IMapper mapper;
 
-        public AccountController(IStudentRepository students, AppDbContext dbContext, IPasswordHasher<User> passwordHasher, IJwtProvider jwtProvider, IMapper mapper)
+        public AccountController(IStudentRepository studentRepo, AppDbContext dbContext, IPasswordHasher<User> passwordHasher, IJwtProvider jwtProvider, IMapper mapper)
         {
-            this.students = students;
+            this.studentRepo = studentRepo;
             this.dbContext = dbContext;
             this.passwordHasher = passwordHasher;
             this.jwtProvider = jwtProvider;
@@ -43,7 +43,7 @@ namespace TutoringSystemAPI.Controllers
             var passwordHash = passwordHasher.HashPassword(newUser, registerUserDto.Password);
             newUser.PasswordHash = passwordHash;
 
-            students.CreateStudent(newUser);
+            studentRepo.CreateStudent(newUser);
             return Ok();
         }
 
