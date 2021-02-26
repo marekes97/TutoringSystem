@@ -19,6 +19,7 @@ using System.Text;
 using FluentValidation;
 using TutoringSystemLib.Models;
 using TutoringSystemAPI.Validators;
+using TutoringSystemAPI.Repositories;
 
 namespace TutoringSystemAPI
 {
@@ -59,6 +60,8 @@ namespace TutoringSystemAPI
             services.AddControllers();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserValidation>();
             services.AddDbContext<AppDbContext>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddScoped<Seeder>();
             services.AddAutoMapper(GetType().Assembly);
         }

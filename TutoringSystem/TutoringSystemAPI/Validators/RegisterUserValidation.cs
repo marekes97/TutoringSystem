@@ -11,10 +11,10 @@ namespace TutoringSystemAPI.Validators
     {
         public RegisterUserValidation(AppDbContext dbContext)
         {
-            RuleFor(u => u.Login).NotEmpty();
-            RuleFor(u => u.Login).Custom((value, context) =>
+            RuleFor(u => u.UserName).NotEmpty();
+            RuleFor(u => u.UserName).Custom((value, context) =>
             {
-                var loginAlreadyExist = dbContext.Users.Any(user => user.Login == value);
+                var loginAlreadyExist = dbContext.Users.Any(user => user.UserName == value);
                 if (loginAlreadyExist)
                     context.AddFailure("Login", "That login is taken");
             });
