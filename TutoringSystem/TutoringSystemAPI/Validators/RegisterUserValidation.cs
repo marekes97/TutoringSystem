@@ -16,7 +16,7 @@ namespace TutoringSystemAPI.Validators
             {
                 var loginAlreadyExist = dbContext.Users.Any(user => user.UserName == value);
                 if (loginAlreadyExist)
-                    context.AddFailure("Login", "That login is taken");
+                    context.AddFailure("userName", "That user name is taken");
             });
 
             RuleFor(u => u.Password).MinimumLength(4);
