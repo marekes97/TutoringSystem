@@ -93,7 +93,7 @@ namespace TutoringSystemAPI
                 Role = Role.Tutor,
                 FirstName = "Marek",
                 LastName = "Sroczkowski",
-                Login = "Admin"
+                UserName = "Admin"
             };
             me.PasswordHash = passwordHasher.HashPassword(me, "1234");
 
@@ -101,7 +101,7 @@ namespace TutoringSystemAPI
             {
                 FirstName = "Bartosz",
                 LastName = "Dras",
-                Login = "BarDra",
+                UserName = "BarDra",
                 Role = Role.Student,
                 Contact = new Contact
                 {
@@ -126,7 +126,7 @@ namespace TutoringSystemAPI
             {
                 FirstName = "Alicja",
                 LastName = "Szmigiel",
-                Login = "AliSzm",
+                UserName = "AliSzm",
                 Role = Role.Student,
                 Contact = new Contact
                 {
