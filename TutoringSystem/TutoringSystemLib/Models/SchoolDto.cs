@@ -9,6 +9,6 @@ namespace TutoringSystemLib.Models
     {
         public string SchoolName { get; set; }
         public EducationLevel EducationLevel { get; set; }
-        public int EducationYear { get; set; }
+        public int Year { get; set; }
     }
 }
