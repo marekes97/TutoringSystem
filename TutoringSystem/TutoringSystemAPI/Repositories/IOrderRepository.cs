@@ -7,8 +7,9 @@ namespace TutoringSystemAPI.Repositories
     {
         void AddOrder(AdditionalOrder order);
         void DeleteOrder(int id);
-        AdditionalOrder GetOrder(int id);
+        AdditionalOrder GetOrder(int id, Tutor tutor);
         ICollection<AdditionalOrder> GetOrders();
+        ICollection<AdditionalOrder> GetOrders(Tutor tutor);
         void UpdateOrder(int id, AdditionalOrder newOrder);
     }
 }

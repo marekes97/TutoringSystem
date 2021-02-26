@@ -17,10 +17,16 @@ namespace TutoringSystemAPI.Repositories
 
         public ICollection<AdditionalOrder> GetOrders() => dbContext.AdditionalOrders.ToList();
 
-        public AdditionalOrder GetOrder(int id)
+        public ICollection<AdditionalOrder> GetOrders(Tutor tutor)
         {
             return dbContext.AdditionalOrders
-                .FirstOrDefault(o => o.Id.Equals(id));
+                .Where(o => o.Tutor.Equals(tutor)).ToList();
+        }
+
+        public AdditionalOrder GetOrder(int id, Tutor tutor)
+        {
+            return dbContext.AdditionalOrders
+                .FirstOrDefault(o => o.Id.Equals(id) && o.Tutor.Equals(tutor));
         }
 
         public void AddOrder(AdditionalOrder order)
