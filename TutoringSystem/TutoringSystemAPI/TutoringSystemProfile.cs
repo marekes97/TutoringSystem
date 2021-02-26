@@ -24,6 +24,12 @@ namespace TutoringSystemAPI
                 .ForMember(u => u.Address, map => map.MapFrom(uDto => uDto.Address))
                 .ForMember(u => u.School, map => map.MapFrom(uDto => uDto.School))
                 .ForMember(u => u.Contact, map => map.MapFrom(uDto => uDto.Contact));
+
+            CreateMap<AdditionalOrder, OrderDto>();
+            CreateMap<OrderDto, AdditionalOrder>();
+
+            CreateMap<AdditionalOrder, OrderDetailsDto>();
+            CreateMap<OrderDetailsDto, AdditionalOrder>();
         }
     }
 }
