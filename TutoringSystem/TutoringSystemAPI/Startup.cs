@@ -20,6 +20,7 @@ using FluentValidation;
 using TutoringSystemLib.Models;
 using TutoringSystemAPI.Validators;
 using TutoringSystemAPI.Repositories;
+using FluentValidation.AspNetCore;
 
 namespace TutoringSystemAPI
 {
@@ -57,11 +58,13 @@ namespace TutoringSystemAPI
             services.AddScoped<IJwtProvider, JwtProvider>();
 
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserValidation>();
+            services.AddScoped<IValidator<OrderDetailsDto>, OrderValidation>();
             services.AddDbContext<AppDbContext>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ITutorRepository, TutorRepository>();
             services.AddScoped<Seeder>();
             services.AddAutoMapper(GetType().Assembly);
         }

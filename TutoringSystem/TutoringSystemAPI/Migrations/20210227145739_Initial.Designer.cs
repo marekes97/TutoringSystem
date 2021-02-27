@@ -10,8 +10,8 @@ using TutoringSystemAPI;
 namespace TutoringSystemAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210224164008_AfterRenameLogin")]
-    partial class AfterRenameLogin
+    [Migration("20210227145739_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
