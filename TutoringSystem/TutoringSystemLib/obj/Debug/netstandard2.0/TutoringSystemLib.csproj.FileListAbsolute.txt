@@ -14,4 +14,3 @@ C:\Users\marek\OneDrive\Desktop\CsDev\ASPNETCore\TutoringSystem\TutoringSystem\T
 C:\Users\marek\OneDrive\Desktop\CsDev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.csproj.CoreCompileInputs.cache
 C:\Users\marek\OneDrive\Desktop\CsDev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.dll
 C:\Users\marek\OneDrive\Desktop\CsDev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.pdb
-C:\Users\marek\OneDrive\Desktop\CsDev\ASPNETCore\TutoringSystem\TutoringSystem\TutoringSystem\TutoringSystemLib\obj\Debug\netstandard2.0\TutoringSystemLib.csprojAssemblyReference.cache

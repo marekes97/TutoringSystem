@@ -22,6 +22,8 @@ namespace TutoringSystemAPI
         public virtual DbSet<AdditionalOrder> AdditionalOrders { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Availability> Availabilities { get; set; }
+        public virtual DbSet<Interval> Intervals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
