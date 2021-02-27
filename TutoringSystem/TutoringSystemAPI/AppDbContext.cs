@@ -30,6 +30,10 @@ namespace TutoringSystemAPI
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Student>().ToTable("Students");
             modelBuilder.Entity<Tutor>().ToTable("Tutors");
+
+            modelBuilder.Entity<Subject>().HasOne(s => s.Tutor).WithMany(t => t.Subjects)
+                   .HasForeignKey(s => s.TutorId)
+                    .OnDelete(DeleteBehavior.NoAction);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

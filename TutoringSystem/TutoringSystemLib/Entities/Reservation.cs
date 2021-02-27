@@ -13,6 +13,9 @@ namespace TutoringSystemLib.Entities
         public virtual Lesson Lesson { get; set; }
         public virtual Place Place { get; set; }
 
+        public int SubjectId { get; set; }
+        public virtual Subject Subject { get; set; }
+
         public int TutorId { get; set; }
         public virtual Tutor Tutor { get; set; }
 

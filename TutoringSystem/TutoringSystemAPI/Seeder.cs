@@ -44,24 +44,22 @@ namespace TutoringSystemAPI
                 }
             };
 
-            var programming = new Lesson
+            var programming = new Subject
             {
-                Subject = new Subject
-                {
-                    Name = "Programowanie",
-                    HourlRate = 50.0
-                },
+                Name = "Programowanie"
+            };
+            var math = new Subject
+            {
+                Name = "Matematyka"
+            };
+
+            var programmingLesson = new Lesson
+            {
                 Description = "Omówienie tablic w języku C++",
                 Duration = 2.0,
             };
-
-            var math = new Lesson
+            var mathLesson = new Lesson
             {
-                Subject = new Subject
-                {
-                    Name = "Matematyka",
-                    HourlRate = 40.0
-                },
                 Description = "Ciągi arytmetyczne",
                 Duration = 1.5,
             };
@@ -89,6 +87,11 @@ namespace TutoringSystemAPI
                     City = "Gliwice",
                     PostalCode = "44-100"
                 },
+                Subjects = new List<Subject>
+                {
+                    programming,
+                    math
+                },
 
                 Role = Role.Tutor,
                 FirstName = "Marek",
@@ -103,6 +106,7 @@ namespace TutoringSystemAPI
                 LastName = "Dras",
                 UserName = "BarDra",
                 Role = Role.Student,
+                HourlRate = 40,
                 Contact = new Contact
                 {
                     PhoneNumbers = new List<PhoneNumber>
@@ -128,6 +132,7 @@ namespace TutoringSystemAPI
                 LastName = "Szmigiel",
                 UserName = "AliSzm",
                 Role = Role.Student,
+                HourlRate = 50.0,
                 Contact = new Contact
                 {
                     DiscordName = "ala#0559"
@@ -143,20 +148,29 @@ namespace TutoringSystemAPI
             var r1 = new Reservation
             {
                 StartTime = new DateTime(2021, 02, 22),
-                Lesson = math,
-                Cost = math.Duration * math.Subject.HourlRate,
+                Lesson = mathLesson,
                 Student = bartoszDras,
                 Tutor = me,
-                Place = Place.AtTutor
+                Place = Place.AtTutor,
             };
+            r1.Cost = r1.Lesson.Duration * r1.Student.HourlRate;
             var r2 = new Reservation
             {
                 StartTime = new DateTime(2021, 02, 22),
-                Lesson = programming,
-                Cost = programming.Duration * programming.Subject.HourlRate,
+                Lesson = programmingLesson,
                 Student = alicjaSzmigiel,
                 Tutor = me,
                 Place = Place.Online
+            };
+            r2.Cost = r2.Lesson.Duration * r2.Student.HourlRate;
+
+            programming.Reservations = new List<Reservation>
+            {
+                r2
+            };
+            math.Reservations = new List<Reservation>
+            {
+                r1
             };
 
             var myRerservation = new List<Reservation>();

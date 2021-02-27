@@ -8,9 +8,10 @@ namespace TutoringSystemLib.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double HourlRate  { get; set; }
 
-        public int LessonId { get; set; }
-        public virtual Lesson Lesson { get; set; }
+        public virtual List<Reservation> Reservations { get; set; }
+
+        public int TutorId { get; set; }
+        public virtual Tutor Tutor { get; set; }
     }
 }
