@@ -24,6 +24,12 @@ namespace TutoringSystemAPI.Repositories
                 .FirstOrDefault(t => t.UserName.Equals(userName));
         }
 
+        public Tutor GetTutor(Reservation reservation)
+        {
+            return dbContext.Tutors
+                .FirstOrDefault(s => s.Reservations.FirstOrDefault(r => r.Id.Equals(reservation.Id)) != null);
+        }
+
         public ICollection<Tutor> GetTutors() => dbContext.Tutors.ToList();
 
         public void AddTutor(Tutor tutor)

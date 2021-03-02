@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +10,12 @@ namespace TutoringSystemAPI.Repositories
     public class StudentRepository : IStudentRepository
     {
         private readonly AppDbContext dbContext;
+        private readonly IPasswordHasher<User> passwordHasher;
 
-        public StudentRepository(AppDbContext dbContext)
+        public StudentRepository(AppDbContext dbContext, IPasswordHasher<User> passwordHasher)
         {
             this.dbContext = dbContext;
+            this.passwordHasher = passwordHasher;
         }
 
         public ICollection<Student> GetStudents() => dbContext.Students.ToList();
@@ -20,7 +23,13 @@ namespace TutoringSystemAPI.Repositories
         public Student GetStudent(string userName)
         {
             return dbContext.Students
-                .FirstOrDefault(m => m.UserName.Replace(" ", "-").ToLower().Equals(userName.ToLower()));
+                .FirstOrDefault(s => s.UserName.Replace(" ", "-").ToLower().Equals(userName.ToLower()));
+        }
+
+        public Student GetStudent(Reservation reservation)
+        {
+            return dbContext.Students
+                .FirstOrDefault(s => s.Reservations.FirstOrDefault(r => r.Id.Equals(reservation.Id)) != null);
         }
 
         public void CreateStudent(Student student)
@@ -63,8 +72,6 @@ namespace TutoringSystemAPI.Repositories
 
             student.FirstName = newStudent.FirstName;
             student.LastName = newStudent.LastName;
-            student.PhotoUrl = newStudent.PhotoUrl;
-            student.PasswordHash = newStudent.PasswordHash;
             student.UserName = newStudent.UserName;
 
             dbContext.Students.Update(student);
@@ -72,6 +79,17 @@ namespace TutoringSystemAPI.Repositories
             dbContext.Contacts.Update(contact);
             dbContext.Schools.Update(school);
 
+            dbContext.SaveChanges();
+        }
+
+        public void ChangePassword(string userName, string password)
+        {
+            var student = GetStudent(userName);
+
+            var passwordHash = passwordHasher.HashPassword(student, password);
+            student.PasswordHash = passwordHash;
+
+            dbContext.Students.Update(student);
             dbContext.SaveChanges();
         }
 
