@@ -56,15 +56,22 @@ namespace TutoringSystemAPI
             });
 
             services.AddScoped<IJwtProvider, JwtProvider>();
-
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
             services.AddControllers().AddFluentValidation();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserValidation>();
             services.AddScoped<IValidator<OrderDetailsDto>, OrderValidation>();
+            services.AddScoped<IValidator<PasswordDto>, PasswordValidation>();
+
             services.AddDbContext<AppDbContext>();
+
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ITutorRepository, TutorRepository>();
+            services.AddTransient<IReservationRepository, ReservationRepository>();
+            services.AddTransient<ILessonRepository, LessonRepository>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
+
             services.AddScoped<Seeder>();
             services.AddAutoMapper(GetType().Assembly);
         }
