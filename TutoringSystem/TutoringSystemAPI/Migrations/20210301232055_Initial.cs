@@ -17,7 +17,6 @@ namespace TutoringSystemAPI.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -72,7 +71,8 @@ namespace TutoringSystemAPI.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    HourlRate = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,6 +169,66 @@ namespace TutoringSystemAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Availabilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TutorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Availabilities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Availabilities_Tutors_TutorId",
+                        column: x => x.TutorId,
+                        principalTable: "Tutors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TutorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subjects_Tutors_TutorId",
+                        column: x => x.TutorId,
+                        principalTable: "Tutors",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Intervals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AvailabilityId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Intervals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Intervals_Availabilities_AvailabilityId",
+                        column: x => x.AvailabilityId,
+                        principalTable: "Availabilities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservations",
                 columns: table => new
                 {
@@ -177,6 +237,7 @@ namespace TutoringSystemAPI.Migrations
                     Cost = table.Column<double>(type: "float", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Place = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
                     TutorId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -187,6 +248,12 @@ namespace TutoringSystemAPI.Migrations
                         name: "FK_Reservations_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -218,27 +285,6 @@ namespace TutoringSystemAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Subjects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HourlRate = table.Column<double>(type: "float", nullable: false),
-                    LessonId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subjects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Subjects_Lessons_LessonId",
-                        column: x => x.LessonId,
-                        principalTable: "Lessons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AdditionalOrders_TutorId",
                 table: "AdditionalOrders",
@@ -251,10 +297,20 @@ namespace TutoringSystemAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Availabilities_TutorId",
+                table: "Availabilities",
+                column: "TutorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contacts_UserId",
                 table: "Contacts",
                 column: "UserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Intervals_AvailabilityId",
+                table: "Intervals",
+                column: "AvailabilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_ReservationId",
@@ -273,6 +329,11 @@ namespace TutoringSystemAPI.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_SubjectId",
+                table: "Reservations",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_TutorId",
                 table: "Reservations",
                 column: "TutorId");
@@ -284,10 +345,9 @@ namespace TutoringSystemAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subjects_LessonId",
+                name: "IX_Subjects_TutorId",
                 table: "Subjects",
-                column: "LessonId",
-                unique: true);
+                column: "TutorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -299,25 +359,31 @@ namespace TutoringSystemAPI.Migrations
                 name: "Addresses");
 
             migrationBuilder.DropTable(
+                name: "Intervals");
+
+            migrationBuilder.DropTable(
+                name: "Lessons");
+
+            migrationBuilder.DropTable(
                 name: "PhoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "Schools");
 
             migrationBuilder.DropTable(
-                name: "Subjects");
-
-            migrationBuilder.DropTable(
-                name: "Contacts");
-
-            migrationBuilder.DropTable(
-                name: "Lessons");
+                name: "Availabilities");
 
             migrationBuilder.DropTable(
                 name: "Reservations");
 
             migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Tutors");

@@ -288,9 +288,6 @@ namespace TutoringSystemAPI.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
 

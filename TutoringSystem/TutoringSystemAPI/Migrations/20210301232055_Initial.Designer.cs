@@ -10,8 +10,8 @@ using TutoringSystemAPI;
 namespace TutoringSystemAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210227183517_AddedAvailabilities")]
-    partial class AddedAvailabilities
+    [Migration("20210301232055_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,12 +210,17 @@ namespace TutoringSystemAPI.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TutorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
 
                     b.HasIndex("TutorId");
 
@@ -256,19 +261,15 @@ namespace TutoringSystemAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("HourlRate")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TutorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonId")
-                        .IsUnique();
+                    b.HasIndex("TutorId");
 
                     b.ToTable("Subjects");
                 });
@@ -289,9 +290,6 @@ namespace TutoringSystemAPI.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
@@ -306,6 +304,9 @@ namespace TutoringSystemAPI.Migrations
             modelBuilder.Entity("TutoringSystemLib.Entities.Student", b =>
                 {
                     b.HasBaseType("TutoringSystemLib.Entities.User");
+
+                    b.Property<double>("HourlRate")
+                        .HasColumnType("float");
 
                     b.ToTable("Students");
                 });
@@ -402,6 +403,12 @@ namespace TutoringSystemAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TutoringSystemLib.Entities.Subject", "Subject")
+                        .WithMany("Reservations")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TutoringSystemLib.Entities.Tutor", "Tutor")
                         .WithMany("Reservations")
                         .HasForeignKey("TutorId")
@@ -409,6 +416,8 @@ namespace TutoringSystemAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Student");
+
+                    b.Navigation("Subject");
 
                     b.Navigation("Tutor");
                 });
@@ -426,13 +435,13 @@ namespace TutoringSystemAPI.Migrations
 
             modelBuilder.Entity("TutoringSystemLib.Entities.Subject", b =>
                 {
-                    b.HasOne("TutoringSystemLib.Entities.Lesson", "Lesson")
-                        .WithOne("Subject")
-                        .HasForeignKey("TutoringSystemLib.Entities.Subject", "LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("TutoringSystemLib.Entities.Tutor", "Tutor")
+                        .WithMany("Subjects")
+                        .HasForeignKey("TutorId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Lesson");
+                    b.Navigation("Tutor");
                 });
 
             modelBuilder.Entity("TutoringSystemLib.Entities.Student", b =>
@@ -463,14 +472,14 @@ namespace TutoringSystemAPI.Migrations
                     b.Navigation("PhoneNumbers");
                 });
 
-            modelBuilder.Entity("TutoringSystemLib.Entities.Lesson", b =>
-                {
-                    b.Navigation("Subject");
-                });
-
             modelBuilder.Entity("TutoringSystemLib.Entities.Reservation", b =>
                 {
                     b.Navigation("Lesson");
+                });
+
+            modelBuilder.Entity("TutoringSystemLib.Entities.Subject", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("TutoringSystemLib.Entities.User", b =>
@@ -494,6 +503,8 @@ namespace TutoringSystemAPI.Migrations
                     b.Navigation("Availabilities");
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
         }
