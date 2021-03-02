@@ -18,7 +18,7 @@ namespace TutoringSystemAPI
             CreateMap<ContactDto, Contact>();
             CreateMap<PhoneNumberDto, PhoneNumber>();
 
-            CreateMap<Student, StudentDto>();
+            CreateMap<Student, UserDto>();
             CreateMap<Student, StudentDetailsDto>();
             CreateMap<RegisterUserDto, Student>()
                 .ForMember(u => u.Address, map => map.MapFrom(uDto => uDto.Address))
@@ -30,6 +30,20 @@ namespace TutoringSystemAPI
 
             CreateMap<AdditionalOrder, OrderDetailsDto>();
             CreateMap<OrderDetailsDto, AdditionalOrder>();
+
+            CreateMap<Reservation, ReservationDto>()
+                .ForMember(rDto => rDto.Duration, map => map.MapFrom(r => r.Lesson.Duration));
+
+            CreateMap<Reservation, TutorReservationDetailsDto>()
+                .ForMember(r => r.Duration, map => map.MapFrom(rDto => rDto.Lesson.Duration))
+                .ForMember(r => r.Subject, map => map.MapFrom(rDto => rDto.Subject.Name))
+                .ForMember(r => r.Description, map => map.MapFrom(rDto => rDto.Lesson.Description))
+                .ForMember(r => r.User, map => map.MapFrom(rDto => rDto.Student));
+
+            CreateMap<Reservation, StudentReservationDetailsDto>()
+                .ForMember(r => r.Duration, map => map.MapFrom(rDto => rDto.Lesson.Duration))
+                .ForMember(r => r.Subject, map => map.MapFrom(rDto => rDto.Subject.Name))
+                .ForMember(r => r.Description, map => map.MapFrom(rDto => rDto.Lesson.Description));
         }
     }
 }
