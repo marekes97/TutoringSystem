@@ -44,6 +44,8 @@ namespace TutoringSystemAPI
                 .ForMember(r => r.Duration, map => map.MapFrom(rDto => rDto.Lesson.Duration))
                 .ForMember(r => r.Subject, map => map.MapFrom(rDto => rDto.Subject.Name))
                 .ForMember(r => r.Description, map => map.MapFrom(rDto => rDto.Lesson.Description));
+
+            
         }
     }
 }
