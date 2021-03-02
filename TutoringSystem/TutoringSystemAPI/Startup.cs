@@ -71,6 +71,7 @@ namespace TutoringSystemAPI
             services.AddTransient<IReservationRepository, ReservationRepository>();
             services.AddTransient<ILessonRepository, LessonRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
+            services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
 
             services.AddScoped<Seeder>();
             services.AddAutoMapper(GetType().Assembly);
