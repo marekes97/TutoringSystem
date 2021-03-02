@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TutoringSystemLib.Models
 {
-    public class StudentDto
+    public class UserDto
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
