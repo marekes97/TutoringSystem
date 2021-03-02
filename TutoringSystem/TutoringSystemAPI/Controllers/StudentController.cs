@@ -18,26 +18,24 @@ namespace TutoringSystemAPI.Controllers
     {
         private readonly IStudentRepository studentRepo;
         private readonly IMapper mapper;
-        private readonly IPasswordHasher<User> passwordHasher;
 
         public StudentController(IStudentRepository studentRepo, IMapper mapper, IPasswordHasher<User> passwordHasher)
         {
             this.studentRepo = studentRepo;
             this.mapper = mapper;
-            this.passwordHasher = passwordHasher;
         }
 
         [HttpGet]
         [Authorize(Roles = "Tutor")]
-        public ActionResult<List<StudentDto>> Get()
+        public ActionResult<List<UserDto>> Get()
         {
-            var studentsDtos = mapper.Map<List<StudentDto>>(studentRepo.GetStudents());
+            var studentsDtos = mapper.Map<List<UserDto>>(studentRepo.GetStudents());
             return Ok(studentsDtos);
         }
 
         [HttpGet("{userName}")]
         [Authorize(Roles = "Tutor")]
-        public ActionResult<StudentDto> Get(string userName)
+        public ActionResult<UserDto> Get(string userName)
         {
             var student = studentRepo.GetStudent(userName);
             if (student == null)
@@ -48,7 +46,7 @@ namespace TutoringSystemAPI.Controllers
         }
 
         [HttpPut("{userName}")]
-        [Authorize(Roles = "Tutor")]
+        [Authorize(Roles = "Tutor, Student")]
         public ActionResult Put(string userName, [FromBody] RegisterUserDto userDto)
         {
             var student = studentRepo.GetStudent(userName);
@@ -56,14 +54,29 @@ namespace TutoringSystemAPI.Controllers
                 return NotFound();
 
             var newStudent = mapper.Map<Student>(userDto);
-            newStudent.PasswordHash = passwordHasher.HashPassword(newStudent, userDto.Password);
+            studentRepo.ChangePassword(userName, userDto.Password);
             studentRepo.UpdateStudent(userName, newStudent);
 
             return NoContent();
         }
 
+        [HttpPatch("{userName}")]
+        [Authorize(Roles = "Tutor, Student")]
+        public ActionResult Patch(string userName, [FromBody] PasswordDto passwordDto)
+        {
+            var student = studentRepo.GetStudent(userName);
+            if (student == null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            studentRepo.ChangePassword(userName, passwordDto.NewPassword);
+            return NoContent();
+        }
+
         [HttpDelete("{userName}")]
-        [Authorize(Roles = "Tutor")]
+        [Authorize(Roles = "Tutor,Student")]
         public ActionResult Delete(string userName)
         {
             var student = studentRepo.GetStudent(userName);
