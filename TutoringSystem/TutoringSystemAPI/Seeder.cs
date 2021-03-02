@@ -152,8 +152,12 @@ namespace TutoringSystemAPI
                 Student = bartoszDras,
                 Tutor = me,
                 Place = Place.AtTutor,
+                Subject = math
             };
             r1.Cost = r1.Lesson.Duration * r1.Student.HourlRate;
+            math.Reservations = new List<Reservation> { r1 };
+            mathLesson.Reservation = r1;
+
             var r2 = new Reservation
             {
                 StartTime = new DateTime(2021, 02, 22),
@@ -163,28 +167,12 @@ namespace TutoringSystemAPI
                 Place = Place.Online
             };
             r2.Cost = r2.Lesson.Duration * r2.Student.HourlRate;
-
-            programming.Reservations = new List<Reservation>
-            {
-                r2
-            };
-            math.Reservations = new List<Reservation>
-            {
-                r1
-            };
-
-            var myRerservation = new List<Reservation>();
-            myRerservation.Add(r1);
-            myRerservation.Add(r2);
-            me.Reservations = myRerservation;
-
-            var barDraReservations = new List<Reservation>();
-            barDraReservations.Add(r1);
-            bartoszDras.Reservations = barDraReservations;
-
-            var aliSzmReservations = new List<Reservation>();
-            aliSzmReservations.Add(r2);
-            alicjaSzmigiel.Reservations = aliSzmReservations;
+            programming.Reservations = new List<Reservation> { r2 };
+            programmingLesson.Reservation = r2;
+ 
+            me.Reservations = new List<Reservation> { r1, r2 };
+            bartoszDras.Reservations = new List<Reservation> { r1 };
+            alicjaSzmigiel.Reservations = new List<Reservation> { r2 };
 
             dbContext.Tutors.Add(me);
             dbContext.Students.Add(bartoszDras);
