@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +39,15 @@ namespace TutoringSystemAPI.Repositories
 
         public ICollection<Reservation> GetTutorReservations(string userName)
         {
-            var user = tutorRepo.GetTutor(userName);
-            var reservation = dbContext.Reservations.Where(r => r.TutorId.Equals(user.Id)).ToList();
-            reservation.ForEach(r => r.Lesson = lessonRepo.GetLesson(r));
+            var tutor = tutorRepo.GetTutor(userName);
+            // var reservation = dbContext.Reservations.Where(r => r.TutorId.Equals(tutor.Id)).ToList();
+            var reservation = dbContext.Reservations
+                .Include(r => r.Lesson)
+                .Include(r => r.Subject)
+                .Include(r => r.Student)
+                .Include(r => r.Tutor)
+                .Where(r => r.Tutor.Equals(tutor)).ToList();
+            // reservation.ForEach(r => r.Lesson = lessonRepo.GetLesson(r));
             return reservation;
         }
 
@@ -62,19 +69,19 @@ namespace TutoringSystemAPI.Repositories
         {
             var userReservation = GetTutorReservations(userName);
             var reservation = userReservation?.FirstOrDefault(r => r.Id.Equals(id));
-            if (reservation != null)
-            {
-                reservation.Student = studentRepo.GetStudent(reservation);
-                reservation.Subject = subjectRepo.GetSubject(reservation);
-                reservation.Tutor = tutorRepo.GetTutor(userName);
-                return reservation;
-            }
-            return null;
+            return reservation;
         }
 
-        public void AddReservation(Reservation reservation)
+        public void AddTutorReservation(Reservation reservation, string studentName)
         {
-
+            var subject = dbContext.Subjects.FirstOrDefault(s => s.Name.Equals(reservation.Subject.Name));
+            var student = dbContext.Students.FirstOrDefault(s => s.UserName.Equals(studentName));
+            reservation.Student = student;
+            reservation.Subject = subject;
+            var cost = student.HourlRate * reservation.Lesson.Duration;
+            reservation.Cost = cost;
+            dbContext.Reservations.Add(reservation);
+            dbContext.SaveChanges();
         }
     }
 }

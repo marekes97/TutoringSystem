@@ -7,9 +7,8 @@ namespace TutoringSystemLib.Models
 {
     public class TutorReservationDetailsDto
     {
-        public UserDto User { get; set; }
+        public string StudentName { get; set; }
         public string Subject { get; set; }
-        public double Cost { get; set; }
         public DateTime StartTime { get; set; }
         public double Duration { get; set; }
         public string Description { get; set; }

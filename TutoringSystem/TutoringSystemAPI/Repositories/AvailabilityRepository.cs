@@ -9,18 +9,22 @@ namespace TutoringSystemAPI.Repositories
     public class AvailabilityRepository : IAvailabilityRepository
     {
         public readonly AppDbContext dbContext;
-        public readonly TutorRepository tutorRepo;
+        public readonly ITutorRepository tutorRepo;
+        public readonly IIntervalRepository intervalRepo;
 
-        public AvailabilityRepository(AppDbContext dbContext, TutorRepository tutorRepo)
+        public AvailabilityRepository(AppDbContext dbContext, ITutorRepository tutorRepo, IIntervalRepository intervalRepo)
         {
             this.dbContext = dbContext;
             this.tutorRepo = tutorRepo;
+            this.intervalRepo = intervalRepo;
         }
 
         public ICollection<Availability> GetAvailabilities(string userName)
         {
             var user = tutorRepo.GetTutor(userName);
-            return dbContext.Availabilities.Where(a => a.Tutor.Equals(user)).ToList();
+            var availabilities = dbContext.Availabilities.Where(a => a.Tutor.Equals(user)).ToList();
+            availabilities.ForEach(a => a.Intervals = intervalRepo.GetIntervals(a).ToList());
+            return availabilities;
         }
 
         public void AddAvailability(Availability availability)

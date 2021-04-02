@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TutoringSystemAPI.Repositories;
+using TutoringSystemLib.Entities;
 using TutoringSystemLib.Models;
 
 namespace TutoringSystemAPI.Controllers
@@ -15,12 +16,14 @@ namespace TutoringSystemAPI.Controllers
     public class TutorReservationController : ControllerBase
     {
         private readonly IReservationRepository reservationRepo;
+        private readonly ITutorRepository tutorRepo;
         private readonly IMapper mapper;
 
-        public TutorReservationController(IReservationRepository reservationRepo, IMapper mapper)
+        public TutorReservationController(IReservationRepository reservationRepo, IMapper mapper, ITutorRepository tutorRepo)
         {
             this.reservationRepo = reservationRepo;
             this.mapper = mapper;
+            this.tutorRepo = tutorRepo;
         }
 
         [HttpGet]
@@ -42,6 +45,27 @@ namespace TutoringSystemAPI.Controllers
             var reservation = reservationRepo.GetTutorReservation(id, userName);
             var reservationsDto = mapper.Map<TutorReservationDetailsDto>(reservation);
             return Ok(reservationsDto);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Tutor")]
+        public ActionResult Post([FromBody] TutorReservationDetailsDto model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var reservation = mapper.Map<Reservation>(model);
+            var userName = User.FindFirst(c => c.Type == ClaimTypes.Name).Value;
+            var tutor = tutorRepo.GetTutor(userName);
+            reservation.Tutor = tutor;
+
+            if (tutor == null)
+                return NotFound();
+
+            reservationRepo.AddTutorReservation(reservation, model.StudentName);
+
+            var key = reservation.Id;
+            return Created("api/tutor/reservation" + key, null);
         }
     }
 }
