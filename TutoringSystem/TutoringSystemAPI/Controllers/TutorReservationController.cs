@@ -62,7 +62,7 @@ namespace TutoringSystemAPI.Controllers
             if (tutor == null)
                 return NotFound();
 
-            reservationRepo.AddTutorReservation(reservation, model.StudentName);
+            reservationRepo.AddTutorReservation(reservation, model.Subject, model.StudentName);
 
             var key = reservation.Id;
             return Created("api/tutor/reservation" + key, null);

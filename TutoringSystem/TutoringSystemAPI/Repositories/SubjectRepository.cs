@@ -19,6 +19,8 @@ namespace TutoringSystemAPI.Repositories
 
         public Subject GetSubject(int id) => dbContext.Subjects.FirstOrDefault(s => s.Id.Equals(id));
 
+        public Subject GetSubject(string name) => dbContext.Subjects.FirstOrDefault(s => s.Name.Equals(name));
+
         public Subject GetSubject(Reservation reservation) => dbContext.Subjects
             .FirstOrDefault(s => s.Reservations.FirstOrDefault(r => r.Id.Equals(reservation.Id)) != null);
     }

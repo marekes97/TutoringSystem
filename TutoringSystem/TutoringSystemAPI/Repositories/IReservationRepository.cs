@@ -9,6 +9,6 @@ namespace TutoringSystemAPI.Repositories
         ICollection<Reservation> GetTutorReservations(string userName);
         Reservation GetStudentReservation(int id, string userName);
         Reservation GetTutorReservation(int id, string userName);
-        void AddTutorReservation(Reservation reservation, string studentName);
+        void AddTutorReservation(Reservation reservation, string subjectName, string studentName);
     }
 }

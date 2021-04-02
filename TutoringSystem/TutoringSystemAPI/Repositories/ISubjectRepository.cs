@@ -7,6 +7,7 @@ namespace TutoringSystemAPI.Repositories
     {
         Subject GetSubject(int id);
         Subject GetSubject(Reservation reservation);
+        Subject GetSubject(string name);
         ICollection<Subject> GetSubjects();
     }
 }
