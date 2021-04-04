@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,13 +16,18 @@ namespace TutoringSystemAPI.Repositories
             this.dbContext = dbContext;
         }
 
-        public ICollection<Subject> GetSubjects() => dbContext.Subjects.ToList();
+        public ICollection<Subject> GetSubjects() => dbContext.Subjects
+            .Include(s => s.Reservations)
+            .Include(s => s.Tutor)
+            .ToList();
 
-        public Subject GetSubject(int id) => dbContext.Subjects.FirstOrDefault(s => s.Id.Equals(id));
+        public Subject GetSubject(int id) => GetSubjects()
+            .FirstOrDefault(s => s.Id.Equals(id));
 
-        public Subject GetSubject(string name) => dbContext.Subjects.FirstOrDefault(s => s.Name.Equals(name));
+        public Subject GetSubject(string name) => GetSubjects()
+            .FirstOrDefault(s => s.Name.Equals(name));
 
-        public Subject GetSubject(Reservation reservation) => dbContext.Subjects
+        public Subject GetSubject(Reservation reservation) => GetSubjects()
             .FirstOrDefault(s => s.Reservations.FirstOrDefault(r => r.Id.Equals(reservation.Id)) != null);
     }
 }

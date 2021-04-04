@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI.Repositories
@@ -26,27 +23,28 @@ namespace TutoringSystemAPI.Repositories
             this.subjectRepo = subjectRepo;
         }
 
+        public ICollection<Reservation> GetReservations() => dbContext.Reservations
+            .Include(r => r.Lesson)
+            .Include(r => r.Subject)
+            .Include(r => r.Student)
+            .Include(r => r.Tutor)
+            .ToList();
+
         public ICollection<Reservation> GetStudentReservations(string userName)
         {
             var student = studentRepo.GetStudent(userName);
-            var reservation = dbContext.Reservations
-                .Include(r => r.Lesson)
-                .Include(r => r.Subject)
-                .Include(r => r.Student)
-                .Include(r => r.Tutor)
+            var reservation = GetReservations()
                 .Where(r => r.Student.Equals(student)).ToList();
+
             return reservation;
         }
 
         public ICollection<Reservation> GetTutorReservations(string userName)
         {
             var tutor = tutorRepo.GetTutor(userName);
-            var reservation = dbContext.Reservations
-                .Include(r => r.Lesson)
-                .Include(r => r.Subject)
-                .Include(r => r.Student)
-                .Include(r => r.Tutor)
+            var reservation = GetReservations()
                 .Where(r => r.Tutor.Equals(tutor)).ToList();
+
             return reservation;
         }
 
@@ -70,8 +68,10 @@ namespace TutoringSystemAPI.Repositories
             var student = dbContext.Students.FirstOrDefault(s => s.UserName.Equals(studentName));
             reservation.Student = student;
             reservation.Subject = subject;
+
             var cost = student.HourlRate * reservation.Lesson.Duration;
             reservation.Cost = cost;
+
             dbContext.Reservations.Add(reservation);
             dbContext.SaveChanges();
         }

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI.Repositories
@@ -15,10 +14,14 @@ namespace TutoringSystemAPI.Repositories
             this.dbContext = dbContext;
         }
 
-        public ICollection<Lesson> GetLessons() => dbContext.Lessons.ToList();
+        public ICollection<Lesson> GetLessons() => dbContext.Lessons
+            .Include(l => l.Reservation)
+            .ToList();
 
-        public Lesson GetLesson(int id) => dbContext.Lessons.FirstOrDefault(l => l.Id.Equals(id));
+        public Lesson GetLesson(int id) => GetLessons()
+            .FirstOrDefault(l => l.Id.Equals(id));
 
-        public Lesson GetLesson(Reservation reservation) => dbContext.Lessons.FirstOrDefault(l => l.Reservation.Equals(reservation));
+        public Lesson GetLesson(Reservation reservation) => GetLessons()
+            .FirstOrDefault(l => l.Reservation.Equals(reservation));
     }
 }

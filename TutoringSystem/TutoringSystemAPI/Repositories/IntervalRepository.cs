@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI.Repositories
@@ -15,8 +14,12 @@ namespace TutoringSystemAPI.Repositories
             this.dbContext = dbContext;
         }
 
-        public ICollection<Interval> GetIntervals() => dbContext.Intervals.ToList();
-        public ICollection<Interval> GetIntervals(Availability availability) => dbContext.Intervals
-            .Where(i => i.Availability.Equals(availability)).ToList();
+        public ICollection<Interval> GetIntervals() => dbContext.Intervals
+            .Include(i => i.Availability)
+            .ToList();
+
+        public ICollection<Interval> GetIntervals(Availability availability) => GetIntervals()
+            .Where(i => i.Availability.Equals(availability))
+            .ToList();
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI.Repositories
@@ -15,21 +14,21 @@ namespace TutoringSystemAPI.Repositories
             this.dbContext = dbContext;
         }
 
-        public ICollection<AdditionalOrder> GetOrders() => dbContext.AdditionalOrders.ToList();
+        public ICollection<AdditionalOrder> GetOrders() => dbContext.AdditionalOrders
+            .Include(o => o.Tutor)
+            .ToList();
 
-        public ICollection<AdditionalOrder> GetOrders(Tutor tutor)
-        {
-            return dbContext.AdditionalOrders
-                .Where(o => o.Tutor.Equals(tutor)).ToList();
-        }
+        public ICollection<AdditionalOrder> GetOrders(Tutor tutor) => GetOrders()
+                .Where(o => o.Tutor.Equals(tutor))
+                .ToList();
 
-        public AdditionalOrder GetOrder(int id, Tutor tutor)
-        {
-            return dbContext.AdditionalOrders
+        public AdditionalOrder GetOrder(int id) => GetOrders()
+            .FirstOrDefault(o => o.Id.Equals(id));
+        
+        public AdditionalOrder GetOrder(int id, Tutor tutor) => GetOrders()
                 .FirstOrDefault(o => o.Id.Equals(id) && o.Tutor.Equals(tutor));
-        }
-
-        public void AddOrder(AdditionalOrder order)
+        
+        public void CreateOrder(AdditionalOrder order)
         {
             dbContext.AdditionalOrders.Add(order);
             dbContext.SaveChanges();
@@ -37,8 +36,7 @@ namespace TutoringSystemAPI.Repositories
 
         public void UpdateOrder(int id, AdditionalOrder newOrder)
         {
-            var order = dbContext.AdditionalOrders
-                .FirstOrDefault(o => o.Id.Equals(id));
+            var order = GetOrder(id);
 
             order.Cost = newOrder.Cost;
             order.Deadline = newOrder.Deadline;
@@ -51,8 +49,7 @@ namespace TutoringSystemAPI.Repositories
 
         public void DeleteOrder(int id)
         {
-            var order = dbContext.AdditionalOrders
-                .FirstOrDefault(o => o.Id.Equals(id));
+            var order = GetOrder(id);
 
             dbContext.AdditionalOrders.Remove(order);
             dbContext.SaveChanges();

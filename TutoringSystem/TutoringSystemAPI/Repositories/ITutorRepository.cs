@@ -5,7 +5,7 @@ namespace TutoringSystemAPI.Repositories
 {
     public interface ITutorRepository
     {
-        void AddTutor(Tutor tutor);
+        void CreateTutor(Tutor tutor);
         void ChangePassword(string userName, string password);
         void DeleteTutor(string userName);
         Tutor GetTutor(string userName);

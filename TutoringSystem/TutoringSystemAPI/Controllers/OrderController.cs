@@ -75,7 +75,7 @@ namespace TutoringSystemAPI.Controllers
             if (tutor == null)
                 return NotFound();
 
-            orderRepo.AddOrder(order);
+            orderRepo.CreateOrder(order);
 
             var key = order.Id;
             return Created("api/order/" + key, null);

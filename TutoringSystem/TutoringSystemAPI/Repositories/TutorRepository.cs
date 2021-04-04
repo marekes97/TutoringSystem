@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI.Repositories
@@ -18,21 +17,22 @@ namespace TutoringSystemAPI.Repositories
             this.passwordHasher = passwordHasher;
         }
 
-        public Tutor GetTutor(string userName)
-        {
-            return dbContext.Tutors
+        public ICollection<Tutor> GetTutors() => dbContext.Tutors
+            .Include(t => t.AdditionalOrders)
+            .Include(t => t.Address)
+            .Include(t => t.Availabilities)
+            .Include(t => t.Contact)
+            .Include(t => t.Reservations)
+            .Include(t => t.Subjects)
+            .ToList();
+
+        public Tutor GetTutor(string userName) => GetTutors()
                 .FirstOrDefault(t => t.UserName.Equals(userName));
-        }
 
-        public Tutor GetTutor(Reservation reservation)
-        {
-            return dbContext.Tutors
-                .FirstOrDefault(s => s.Reservations.FirstOrDefault(r => r.Id.Equals(reservation.Id)) != null);
-        }
+        public Tutor GetTutor(Reservation reservation) => GetTutors()
+                .FirstOrDefault(t => t.Reservations.FirstOrDefault(r => r.Equals(reservation)) != null);
 
-        public ICollection<Tutor> GetTutors() => dbContext.Tutors.ToList();
-
-        public void AddTutor(Tutor tutor)
+        public void CreateTutor(Tutor tutor)
         {
             dbContext.Tutors.Add(tutor);
             dbContext.SaveChanges();
@@ -51,6 +51,7 @@ namespace TutoringSystemAPI.Repositories
 
             var passwordHash = passwordHasher.HashPassword(tutor, password);
             tutor.PasswordHash = passwordHash;
+
             dbContext.Tutors.Update(tutor);
             dbContext.SaveChanges();
         }

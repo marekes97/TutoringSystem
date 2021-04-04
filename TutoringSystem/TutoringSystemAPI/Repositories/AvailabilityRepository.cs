@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +23,9 @@ namespace TutoringSystemAPI.Repositories
         public ICollection<Availability> GetAvailabilities(string userName)
         {
             var user = tutorRepo.GetTutor(userName);
-            var availabilities = dbContext.Availabilities.Where(a => a.Tutor.Equals(user)).ToList();
-            availabilities.ForEach(a => a.Intervals = intervalRepo.GetIntervals(a).ToList());
+            var availabilities = dbContext.Availabilities
+                .Include(a => a.Intervals)
+                .Where(a => a.Tutor.Equals(user)).ToList();
             return availabilities;
         }
 

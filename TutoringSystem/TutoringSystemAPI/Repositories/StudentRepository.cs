@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TutoringSystemLib.Entities;
 
 namespace TutoringSystemAPI.Repositories
@@ -11,26 +10,35 @@ namespace TutoringSystemAPI.Repositories
     {
         private readonly AppDbContext dbContext;
         private readonly IPasswordHasher<User> passwordHasher;
+        private readonly IAddressRepository addressRepo;
+        private readonly ISchoolRepository schoolRepo;
+        private readonly IContactRepository contactRepo;
 
-        public StudentRepository(AppDbContext dbContext, IPasswordHasher<User> passwordHasher)
+        public StudentRepository(AppDbContext dbContext,
+            IPasswordHasher<User> passwordHasher,
+            IAddressRepository addressRepo,
+            ISchoolRepository schoolRepo, 
+            IContactRepository contactRepo)
         {
             this.dbContext = dbContext;
             this.passwordHasher = passwordHasher;
+            this.addressRepo = addressRepo;
+            this.schoolRepo = schoolRepo;
+            this.contactRepo = contactRepo;
         }
 
-        public ICollection<Student> GetStudents() => dbContext.Students.ToList();
+        public ICollection<Student> GetStudents() => dbContext.Students
+            .Include(s => s.Address)
+            .Include(s => s.Contact)
+            .Include(s => s.Reservations)
+            .Include(s=> s.School)
+            .ToList();
 
-        public Student GetStudent(string userName)
-        {
-            return dbContext.Students
+        public Student GetStudent(string userName) => GetStudents()
                 .FirstOrDefault(s => s.UserName.Replace(" ", "-").ToLower().Equals(userName.ToLower()));
-        }
-
-        public Student GetStudent(Reservation reservation)
-        {
-            return dbContext.Students
-                .FirstOrDefault(s => s.Reservations.FirstOrDefault(r => r.Id.Equals(reservation.Id)) != null);
-        }
+        
+        public Student GetStudent(Reservation reservation) => GetStudents()
+                .FirstOrDefault(s => s.Reservations.Equals(reservation));
 
         public void CreateStudent(Student student)
         {
@@ -41,44 +49,16 @@ namespace TutoringSystemAPI.Repositories
         public void UpdateStudent(string userName, Student newStudent)
         {
             var student = GetStudent(userName);
-            var address = dbContext.Addresses.FirstOrDefault(a => a.User.Equals(student));
-            var contact = dbContext.Contacts.FirstOrDefault(c => c.User.Equals(student));
-            var school = dbContext.Schools.FirstOrDefault(s => s.Student.Equals(student));
-            var phones = dbContext.PhoneNumbers.Where(p => p.Contact.Equals(contact)).ToList();
 
-            address.City = newStudent.Address.City;
-            address.PostalCode = newStudent.Address.PostalCode;
-            address.Street = newStudent.Address.Street;
-
-            contact.DiscordName = newStudent.Contact.DiscordName;
-            contact.Email = newStudent.Contact.Email;
-            for (int i = 0; i < phones.Count; i++)
-            {
-                phones[i].Number = newStudent.Contact.PhoneNumbers[i].Number;
-                phones[i].Owner = newStudent.Contact.PhoneNumbers[i].Owner;
-            }
-            if(newStudent.Contact.PhoneNumbers.Count > phones.Count)
-            {
-                for (int i = phones.Count; i < newStudent.Contact.PhoneNumbers.Count; i++)
-                {
-                    phones[i].Number = newStudent.Contact.PhoneNumbers[i].Number;
-                    phones[i].Owner = newStudent.Contact.PhoneNumbers[i].Owner;
-                }
-            }
-
-            school.EducationLevel = newStudent.School.EducationLevel;
-            school.Name = newStudent.School.Name;
-            school.Year = newStudent.School.Year;
+            addressRepo.UpdateAddress(student.Address, newStudent.Address);
+            schoolRepo.UpdateSchool(student.School, newStudent.School);
+            contactRepo.UpdateContact(student.Contact, newStudent.Contact);
 
             student.FirstName = newStudent.FirstName;
             student.LastName = newStudent.LastName;
             student.UserName = newStudent.UserName;
 
             dbContext.Students.Update(student);
-            dbContext.Addresses.Update(address);
-            dbContext.Contacts.Update(contact);
-            dbContext.Schools.Update(school);
-
             dbContext.SaveChanges();
         }
 
