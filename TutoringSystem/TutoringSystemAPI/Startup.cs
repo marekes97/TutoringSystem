@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using AutoMapper;
 using TutoringSystemAPI.Identity;
 using TutoringSystemLib.Entities;
 using Microsoft.IdentityModel.Tokens;
@@ -65,6 +57,7 @@ namespace TutoringSystemAPI
 
             services.AddDbContext<AppDbContext>();
 
+            #region Repositories
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ITutorRepository, TutorRepository>();
@@ -73,6 +66,11 @@ namespace TutoringSystemAPI
             services.AddTransient<ISubjectRepository, SubjectRepository>();
             services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             services.AddTransient<IIntervalRepository, IntervalRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+            services.AddTransient<ISchoolRepository, SchoolRepository>();
+            services.AddTransient<IPhoneNumberRepository, PhoneNumberRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
+            #endregion
 
             services.AddScoped<Seeder>();
             services.AddAutoMapper(GetType().Assembly);
